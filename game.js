@@ -1,12 +1,16 @@
+//position var
 let crocoX = 100;
 let crocoY = 100;
-let cloudX = 100;
-let cloudY = 100;
-let cloudS = 1.4;
+
+// game logic var
+let velocityY = 0.2;
+let acceleration = 0.2;
+
+// game state var
+let gameState = true;
 
 function setup() {
   createCanvas(800, 600);
-  background(126, 248, 255);
 }
 
 //character function
@@ -233,6 +237,8 @@ function water() {
 }
 
 function draw() {
+  clear();
+  background(126, 248, 255);
   cloud(-50, 40, 1.3);
   cloud(260, 70, 1.4);
   cloud(100, 210, 1.7);
@@ -240,9 +246,18 @@ function draw() {
   cloud(500, 250, 1.3);
   cloud(760, 200, 1.6);
 
-  crocodile(300, 450, 0.6);
+  crocodile(crocoX + 200, crocoY - 70, 0.6);
 
   water(0, 575);
 
   land(-20, 10, 3);
+
+  // gravity logic
+  crocoY = crocoY + velocityY;
+  velocityY = velocityY + acceleration;
+
+  //decrease the velocity when pressing space key
+  if (keyIsDown(32)) {
+    velocityY = velocityY - 0.7;
+  }
 }
