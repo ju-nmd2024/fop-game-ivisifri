@@ -6,8 +6,29 @@ let crocoY = 100;
 let velocityY = 0.2;
 let acceleration = 0.2;
 
-// game state var
-let gameState = true;
+let gameState = "start";
+
+function startScreen() {
+  background(255);
+  textSize(40);
+  fill(0);
+  text("Lets FLY!", 250, 200);
+  text("PRESS ENTER TO START", 200, 300);
+}
+
+function winScreen() {
+  background(0, 255, 0);
+  textSize(40);
+  fill(0);
+  text("You saved the CROC!", 210, 200);
+}
+
+function loseScreen() {
+  background(255, 0, 0);
+  textSize(40);
+  fill(0);
+  text("Game Over", 250, 100);
+}
 
 function setup() {
   createCanvas(800, 600);
@@ -236,28 +257,55 @@ function water() {
   rect(0, 575, 800, 25);
 }
 
+//key functions
+function keyPressed() {
+  if (keyCode === 13 && gameState === "start") {
+    gameState = "play";
+  }
+}
+
 function draw() {
   clear();
-  background(126, 248, 255);
-  cloud(-50, 40, 1.3);
-  cloud(260, 70, 1.4);
-  cloud(100, 210, 1.7);
-  cloud(540, 20, 1.5);
-  cloud(500, 250, 1.3);
-  cloud(760, 200, 1.6);
 
-  crocodile(crocoX + 200, crocoY - 70, 0.6);
+  if (gameState === "start") {
+    startScreen();
+  } else if (gameState === "play") {
+    background(126, 248, 255);
+    cloud(-50, 40, 1.3);
+    cloud(260, 70, 1.4);
+    cloud(100, 210, 1.7);
+    cloud(540, 20, 1.5);
+    cloud(500, 250, 1.3);
+    cloud(760, 200, 1.6);
 
-  water(0, 575);
+    crocodile(crocoX + 200, crocoY - 70, 0.6);
 
-  land(-20, 10, 3);
+    water(0, 575);
 
-  // gravity logic
-  crocoY = crocoY + velocityY;
-  velocityY = velocityY + acceleration;
+    land(-20, 10, 3);
 
-  //decrease the velocity when pressing space key
-  if (keyIsDown(32)) {
-    velocityY = velocityY - 0.7;
+    // gravity logic
+    crocoY = crocoY + velocityY;
+    velocityY = velocityY + acceleration;
+
+    //decrease the velocity when pressing space key
+    if (keyIsPressed) {
+      if (keyCode == 32) {
+        velocityY = velocityY - 0.7;
+      }
+    }
+
+    // ends the game when the character collides with the land
+    if (crocoY > 540) {
+      if (velocityY <= 3) {
+        gameState = "win";
+      } else if (velocityY > 3) {
+        gameState = "lose";
+      }
+    }
+  } else if (gameState === "win") {
+    winScreen();
+  } else if (gameState === "lose") {
+    loseScreen();
   }
 }
