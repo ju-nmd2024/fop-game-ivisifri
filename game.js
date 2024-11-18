@@ -12,8 +12,8 @@ function startScreen() {
   background(255);
   textSize(40);
   fill(0);
-  text("Lets FLY!", 250, 200);
-  text("PRESS ENTER TO START", 200, 300);
+  text("Lets FLY!", 315, 200);
+  text("Press ENTER to start the game.", 120, 300);
 }
 
 function winScreen() {
@@ -21,13 +21,15 @@ function winScreen() {
   textSize(40);
   fill(0);
   text("You saved the CROC!", 210, 200);
+  text("Press r to replay.", 255, 300);
 }
 
 function loseScreen() {
   background(255, 0, 0);
   textSize(40);
   fill(0);
-  text("Game Over", 250, 100);
+  text("Game over.", 290, 200);
+  text("Press r to replay.", 255, 300);
 }
 
 function setup() {
@@ -307,5 +309,11 @@ function draw() {
     winScreen();
   } else if (gameState === "lose") {
     loseScreen();
+  }
+
+  if (keyCode === 82 && (gameState === "win" || gameState === "lose")) {
+    gameState = "start";
+    crocoY = 100;
+    velocityY = 0.2;
   }
 }
