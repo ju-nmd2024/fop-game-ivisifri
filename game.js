@@ -14,6 +14,7 @@ function startScreen() {
   fill(0);
   text("Lets FLY!", 315, 200);
   text("Press ENTER to start the game.", 120, 300);
+  text("Control the Croc by Spacebar!", 130, 400);
 }
 
 function winScreen() {
@@ -144,15 +145,29 @@ function crocodile(x, y, s) {
   );
 
   //tongue
-  fill(255, 0, 0);
+  if (keyIsPressed && keyCode === 32) {
+    fill(255, 0, 0);
+    beginShape();
+    vertex(x + 50 * s, y + 45 * s);
+    bezierVertex(
+      x + 50 * s,
+      y + 90 * s,
+      x + 70 * s,
+      y + 70 * s,
+      x + 70 * s,
+      y + 45 * s
+    );
+    endShape();
+  }
+  fill(249, 69, 165);
   beginShape();
-  vertex(x + 50 * s, y + 45 * s);
+  vertex(x + 55 * s, y + 45 * s);
   bezierVertex(
-    x + 50 * s,
-    y + 90 * s,
-    x + 70 * s,
+    x + 56 * s,
     y + 70 * s,
-    x + 70 * s,
+    x + 64 * s,
+    y + 60 * s,
+    x + 65 * s,
     y + 45 * s
   );
   endShape();
@@ -200,6 +215,49 @@ function crocodile(x, y, s) {
     y + 40 * s
   );
 
+  if (keyIsPressed && keyCode === 32) {
+    fill(41, 107, 35);
+    triangle(
+      x + 135 * s,
+      y + 33 * s,
+      x + 155 * s,
+      y + 20 * s,
+      x + 175 * s,
+      y + 35 * s
+    );
+    triangle(
+      x + 175 * s,
+      y + 35 * s,
+      x + 190 * s,
+      y + 16 * s,
+      x + 210 * s,
+      y + 36 * s
+    );
+    triangle(
+      x + 210 * s,
+      y + 36 * s,
+      x + 225 * s,
+      y + 22 * s,
+      x + 235 * s,
+      y + 37 * s
+    );
+    triangle(
+      x + 235 * s,
+      y + 37 * s,
+      x + 251 * s,
+      y + 19 * s,
+      x + 270 * s,
+      y + 39 * s
+    );
+    triangle(
+      x + 270 * s,
+      y + 39 * s,
+      x + 288 * s,
+      y + 26 * s,
+      x + 299 * s,
+      y + 40 * s
+    );
+  }
   //fingers
   stroke(black);
   strokeWeight(1 * s);
